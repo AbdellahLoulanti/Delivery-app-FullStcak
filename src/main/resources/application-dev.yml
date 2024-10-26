@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/livraison_amana
+    username: abdelhak
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: localhost
+    port: 1025
+    username: abdelhak
+    password: password
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+  application:
+    security:
+      jwt:
+        secret-key: e935777f47343bbf2212029d1d6bce050d3f04245091cac5f3fe60ae34eead00
+        expiration: 8640000
+      mailing:
+        frontend:
+          activation-url: http://localhost:4200/activate-account
+server:
+  port: 8088
