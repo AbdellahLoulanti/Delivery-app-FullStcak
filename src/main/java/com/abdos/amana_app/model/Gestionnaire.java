@@ -1,13 +1,14 @@
 package com.abdos.amana_app.model;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
-@Table(name = "clients")
-public class Client {
+@Entity
+@Table(name = "gestionnaires")
+public class Gestionnaire {
 
     @Id
     private Long userId;
@@ -17,12 +18,14 @@ public class Client {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String adresse;
     private String telephone;
-    private String codePostal;
+
     @ManyToOne
-    @JoinColumn(name = "province_postal_code_id")  // Foreign key to ProvincePostalCode
-    private ProvincePostalCode provincePostalCode;
+    @JoinColumn(name = "region_id")  // Correct the name of the foreign key column
+    private Region region;  // Link Gestionnaire directly to Region
 
     // Getters et setters
 }
+
+
+

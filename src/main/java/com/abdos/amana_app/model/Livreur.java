@@ -14,14 +14,17 @@ public class Livreur {
     @Id
     private Long userId;
 
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
 
     private String telephone;
-    private String codePostal;
 
+    @ManyToOne
+    @JoinColumn(name = "province_postal_code_id")  // Foreign key to ProvincePostalCode
+    private ProvincePostalCode provincePostalCode;
     // Getters et setters
 }
 

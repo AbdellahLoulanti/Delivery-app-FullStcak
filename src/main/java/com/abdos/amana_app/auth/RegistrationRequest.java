@@ -39,17 +39,24 @@ public class RegistrationRequest {
 
     private String codePostal; // Optionnel selon le rôle
 
+    private Integer provinceId; // Add this line for the province ID
+
+    private Integer regionId;
+
     // Méthode pour valider les champs selon le rôle
     public boolean isValidForRole() {
         switch (role) {
             case CLIENT:
                 return adresse != null && !adresse.isEmpty() &&
                         telephone != null && !telephone.isEmpty() &&
-                        codePostal != null && !codePostal.isEmpty();
+                        codePostal != null && !codePostal.isEmpty()&&
+                         provinceId != null;
             case LIVREUR:
                 return telephone != null && !telephone.isEmpty() &&
-                        codePostal != null && !codePostal.isEmpty();
+                        provinceId != null;
             case GESTIONNAIRE:
+                return telephone != null && !telephone.isEmpty() &&
+                        regionId != null;
             case ADMIN:
                 return true; // Pas d'autres champs spécifiques pour ces rôles
             default:

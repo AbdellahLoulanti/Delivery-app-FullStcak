@@ -3,11 +3,14 @@ package com.abdos.amana_app.auth;
 import com.abdos.amana_app.email.EmailService;
 import com.abdos.amana_app.email.EmailTemplateName;
 import com.abdos.amana_app.model.*;
+import com.abdos.amana_app.repository.RegionRepository;
 import com.abdos.amana_app.repository.TokenRepository;
 import com.abdos.amana_app.repository.UserRepository;
+import com.abdos.amana_app.repository.ProvincePostalCodeRepository;
 import com.abdos.amana_app.security.JwtService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +35,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
     private final TokenRepository tokenRepository;
+    @Autowired
+    private ProvincePostalCodeRepository provincePostalCodeRepository;
+    @Autowired
+    private RegionRepository regionRepository;
 
     @Value("${spring.application.security.mailing.frontend.activation-url}")
     private String activationUrl;
@@ -61,13 +68,28 @@ public class AuthenticationService {
             client.setAdresse(request.getAdresse());
             client.setTelephone(request.getTelephone());
             client.setCodePostal(request.getCodePostal());
+            ProvincePostalCode province = provincePostalCodeRepository.findByPostalCodeRange(Integer.parseInt(request.getCodePostal()))
+                    .orElseThrow(() -> new IllegalArgumentException("Province not found for POSTAL CODE : " + request.getProvinceId()));
             user.setClient(client); // Set Client in User
         } else if (userRole == Role.LIVREUR) {
             var livreur = new Livreur();
             livreur.setUser(user); // Associate with User
             livreur.setTelephone(request.getTelephone());
-            livreur.setCodePostal(request.getCodePostal());
+            // Find the ProvincePostalCode entity by ID and associate it with the livreur
+            ProvincePostalCode province = provincePostalCodeRepository.findById(request.getProvinceId())
+                    .orElseThrow(() -> new IllegalArgumentException("Province not found for ID: " + request.getProvinceId()));
+            livreur.setProvincePostalCode(province);
             user.setLivreur(livreur); // Set Livreur in User
+        }else if (userRole == Role.GESTIONNAIRE) {
+            var gestionnaire = new Gestionnaire();
+            gestionnaire.setUser(user); // Associate with User
+            gestionnaire.setTelephone(request.getTelephone());
+
+            // Find the Region entity by ID and associate it with the Gestionnaire
+            Region region = regionRepository.findById(request.getRegionId())
+                    .orElseThrow(() -> new IllegalArgumentException("Region not found for ID: " + request.getRegionId()));
+            gestionnaire.setRegion(region); // Set Region for Gestionnaire
+            user.setGestionnaire(gestionnaire); // Set Gestionnaire in User
         }
 
         userRepository.save(user);
