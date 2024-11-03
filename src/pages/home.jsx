@@ -2,6 +2,7 @@ import {React , useEffect} from 'react'
 import Hero from '../components/Hero/Hero';
 import NavigationSection from '../components/NavigationSection/NavigationSection';
 import Register from './auth/Register';
+import ServicesSection from '../components/ServicesSection/ServicesSection';
 
 const home = () => {
     
@@ -19,6 +20,8 @@ const home = () => {
     <>
     <Hero />
     <NavigationSection />
+    <ServicesSection />
+
     <div id="register">
         <Register />
       </div>

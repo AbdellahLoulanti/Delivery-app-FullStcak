@@ -1,14 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import { FaUser, FaSignInAlt, FaSignOutAlt, FaHistory, FaUserCircle } from 'react-icons/fa';
 import { useAuth } from '../../api/AuthContext'; // Assure-toi que le chemin est correct
 import Logo from '../../assets/Maersk-Logo.png';
+import { link } from 'framer-motion/client';
 
 const Navbar = () => {
   const { user, logout } = useAuth(); // Obtiens l'utilisateur depuis le contexte
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
+  //navigate to delivery form
+  const handleNavigateToDelivery = () => {
+    navigate('/livraison-colis');
+};
   // Toggle dropdown on click
   const handleDropdownClick = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -49,7 +55,7 @@ const Navbar = () => {
           <Link to="/apropos" className="text-darkCyan font-medium hover:text-primary">
             À propos
           </Link>
-          <button className="border-2 border-primary text-primary rounded-full px-4 py-1 font-medium hover:bg-primary hover:text-white transition">
+          <button className="border-2 border-primary text-primary rounded-full px-4 py-1 font-medium hover:bg-primary hover:text-white transition" onClick={handleNavigateToDelivery}>
             Livraison
           </button>
           <button className="bg-[#007784] text-white rounded-full px-4 py-1 font-semibold hover:bg-[#005f63] transition">
@@ -60,13 +66,12 @@ const Navbar = () => {
           <div ref={dropdownRef} className="relative" onClick={handleDropdownClick}>
             
             {user ? (
-             <div className="text-white flex flex-col items-start p-2 rounded-lg bg-lightCyan shadow-md">
-             <div className="flex items-center space-x-2">
-               
-               <span className="font-semibold text-md text-gray-800">{user.name}</span>
-             </div>
-             <span className="text-xs text-gray-600 mt-1">{user.email}</span>
-           </div>
+            <div className="flex flex-col items-center">
+            <span className="bg-[#007784] text-white rounded-full px-4 py-1 font-semibold flex items-center hover:bg-[#005f63] transition">
+              {user.nom}
+            </span>
+            <span className="text-gray-500 text-xs">{user.email}</span>
+          </div>
            
             ) : (
               <button className="bg-[#007784] text-white rounded-full px-4 py-1 font-semibold flex items-center hover:bg-[#005f63] transition">
@@ -80,7 +85,7 @@ const Navbar = () => {
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg p-2">
                 {user ? (
                   <>
-                    <Link to="/profile" className="flex items-center px-4 py-2 text-[#007784] hover:bg-gray-100 rounded">
+                    <Link to="/mon-profile" className="flex items-center px-4 py-2 text-[#007784] hover:bg-gray-100 rounded">
                       <FaUserCircle className="mr-2" /> Profil
                     </Link>
                     <Link to="/historique-commandes" className="flex items-center px-4 py-2 text-[#007784] hover:bg-gray-100 rounded">
