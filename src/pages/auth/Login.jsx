@@ -27,7 +27,8 @@ const Login = () => {
             // Naviguez selon le rôle de l'utilisateur
             switch (user.role) {
                 case 'CLIENT':
-                    navigate('/mon-profile');
+                    navigate('/');
+                    window.location.reload();
                     break;
                 case 'GESTIONNAIRE':
                     navigate('/espace-gestionnaire');
@@ -41,6 +42,7 @@ const Login = () => {
                 default:
                     throw new Error('Unknown role');
             }
+            
         } catch (error) {
             console.error('Login error:', error);
             setError('Invalid email or password.'); // Mettre à jour le message d'erreur si nécessaire
