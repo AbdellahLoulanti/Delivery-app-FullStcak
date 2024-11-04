@@ -1,5 +1,6 @@
 package com.abdos.amana_app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +20,11 @@ public class Region {
     private String regionName;
 
     @OneToMany(mappedBy = "region")
+    @JsonIgnore
     private List<ProvincePostalCode> postalCodes;
 
     @OneToMany(mappedBy = "region")
+    @JsonIgnore
     private List<Gestionnaire> gestionnaires;
 
     // Getters and setters

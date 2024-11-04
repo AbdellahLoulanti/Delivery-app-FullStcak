@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RegionRepository extends JpaRepository<Region, Integer> {
     // Ajoutez ici des méthodes personnalisées si nécessaire
+    Region findByRegionName(String regionName);
 }
 

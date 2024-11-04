@@ -23,18 +23,16 @@ public class TestController {
     }
 
 
+
     @GetMapping("/client")
     public ResponseEntity<?> clientEndpoint() {
         return ResponseEntity.ok("Accessible by CLIENT only");
     }
 
-    @GetMapping("/livreur")
-    public ResponseEntity<?> livreurEndpoint() {
-        return ResponseEntity.ok("Accessible by Livreur only");
+   @GetMapping("/livreur")
+   public ResponseEntity<?> livreurEndpoint() {
+       return ResponseEntity.ok("Accessible by Livreur only");
     }
-    @GetMapping("/gestionnaire")
-    public ResponseEntity<?> gestionnaireEndpoint() {
-        return ResponseEntity.ok("Accessible by Gestionnaire only");
-    }
+
 }
 

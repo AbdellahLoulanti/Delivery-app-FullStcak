@@ -70,6 +70,7 @@ public class AuthenticationService {
             client.setCodePostal(request.getCodePostal());
             ProvincePostalCode province = provincePostalCodeRepository.findByPostalCodeRange(Integer.parseInt(request.getCodePostal()))
                     .orElseThrow(() -> new IllegalArgumentException("Province not found for POSTAL CODE : " + request.getProvinceId()));
+            client.setProvincePostalCode(province);
             user.setClient(client); // Set Client in User
         } else if (userRole == Role.LIVREUR) {
             var livreur = new Livreur();
@@ -120,8 +121,11 @@ public class AuthenticationService {
         // Generate the JWT token
         var jwtToken = jwtService.generateToken(claims, userDetails);  // Ensure generateToken accepts UserDetails
 
+        // Return the response including user data
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .email(user.getEmail()) // Set the user email
+                .role(user.getRole()) // Set the user role
                 .build();
     }
 

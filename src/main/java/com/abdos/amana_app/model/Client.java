@@ -1,4 +1,6 @@
 package com.abdos.amana_app.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,4 +27,7 @@ public class Client {
     private ProvincePostalCode provincePostalCode;
 
     // Getters et setters
+    public Long getId() {
+        return userId;  // Ajouter une méthode getId()
+    }
 }
