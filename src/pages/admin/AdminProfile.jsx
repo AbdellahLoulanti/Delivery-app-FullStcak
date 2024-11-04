@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../../axios';
+import axios from '../../api/axios';
 import defaultAdminImage from '../../assets/Maersk-Logo.png'; // Chemin vers l'image par défaut
 
 const AdminProfile = () => {

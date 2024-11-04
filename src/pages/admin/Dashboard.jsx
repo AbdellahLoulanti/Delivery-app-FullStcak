@@ -3,6 +3,7 @@ import { FaHome, FaUser, FaBox, FaSignOutAlt, FaDollarSign } from 'react-icons/f
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import axios from 'axios';
+import { useAuth } from '../../api/AuthContext';
 
 const Dashboard = () => {
   const [metrics, setMetrics] = useState({ ordersCount: 0, usersCount: 0, revenue: 0 });
@@ -87,6 +88,18 @@ const Dashboard = () => {
     },
   };
 
+  const { logout } = useAuth(); // Assuming useAuth provides a logout function
+
+  const handleLogout = async () => {
+    try {
+      await logout(); // Call the logout function
+      // Optionally, redirect to login or perform other actions
+      window.location.href = '/login'; // Redirect to login after logout
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <div className="flex h-screen bg-gray-100">
       <aside className="w-64 bg-gray-800 p-6 flex flex-col text-white" style={{ backgroundColor: '#018B98' }}>
@@ -100,15 +113,14 @@ const Dashboard = () => {
             <FaBox className="mr-2" />
             <a href="/admin/manage-managers" className="hover:text-gray-400">Manage Managers</a>
           </li>
-          <li className="mb-4 flex items-center">
-            <FaUser className="mr-2" />
-            <a href="/admin/admin-profile" className="hover:text-gray-400">My Profile</a>
-          </li>
           
         </ul>
-        <button className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded mt-auto flex items-center">
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded mt-auto flex items-center"
+        >
           <FaSignOutAlt className="mr-2" />
-          <a href="/login">Logout</a>
+          Logout
         </button>
         
       </aside>
