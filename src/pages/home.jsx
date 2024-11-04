@@ -3,6 +3,7 @@ import Hero from '../components/Hero/Hero';
 import NavigationSection from '../components/NavigationSection/NavigationSection';
 import Register from './auth/Register';
 import ServicesSection from '../components/ServicesSection/ServicesSection';
+import Footer from '../components/Footer/Footer';
 
 const home = () => {
     
@@ -25,6 +26,7 @@ const home = () => {
     <div id="register">
         <Register />
       </div>
+      <Footer />
     </>
   )
 }

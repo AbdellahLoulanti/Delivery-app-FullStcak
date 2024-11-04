@@ -52,7 +52,7 @@ const Navbar = () => {
           <Link to="/" className="text-darkCyan font-medium hover:text-primary">
             Accueil
           </Link>
-          <Link to="/apropos" className="text-darkCyan font-medium hover:text-primary">
+          <Link to="/About" className="text-darkCyan font-medium hover:text-primary">
             À propos
           </Link>
           <button className="border-2 border-primary text-primary rounded-full px-4 py-1 font-medium hover:bg-primary hover:text-white transition" onClick={handleNavigateToDelivery}>
@@ -82,7 +82,7 @@ const Navbar = () => {
 
             {/* Dropdown Content */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg p-2">
+              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-50">
                 {user ? (
                   <>
                     <Link to="/mon-profile" className="flex items-center px-4 py-2 text-[#007784] hover:bg-gray-100 rounded">

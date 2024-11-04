@@ -21,9 +21,8 @@ const RegisterForm = () => {
   const [error, setError] = useState(null);
   const [activationCode, setActivationCode] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [activationSuccess, setActivationSuccess] = useState(false); // new flag for activation success
   const registerRef = useRef(null);
-
- 
 
   const handleChange = (e) => {
     setFormData({
@@ -54,6 +53,7 @@ const RegisterForm = () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8088/api/v1/auth/activate-account?token=${activationCode}`);
       setSuccess('Activation réussie !');
+      setActivationSuccess(true); // set activation success to true
     } catch (err) {
       setError("Échec de l'activation, veuillez réessayer.");
     }
@@ -206,9 +206,16 @@ const RegisterForm = () => {
               />
               
               {error && <p className="text-red-500">{error}</p>}
-              {success && <p className="text-green-600">{success}</p> && <Link to="/login" className="bg-[#007784] text-white rounded-full px-4 py-2 ml-1 font-semibold hover:bg-[#005f63] transition">
+              {success && <p className="text-green-600 ">{success}</p>}
+              
+              {activationSuccess && (
+                <Link
+                  to="/login"
+                  className="bg-[#007784] text-white rounded-full px-4 py-2 ml-1 font-semibold hover:bg-[#005f63] transition mt-1"
+                >
                   Connectez-vous
-                </Link> }
+                </Link>
+              )}
 
               <motion.button
                 type="submit"

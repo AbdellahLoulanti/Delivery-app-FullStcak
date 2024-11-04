@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+
+
 import Navbar from './components/navbar/Navbar.jsx';
 import { AuthProvider, AuthContext } from './api/AuthContext';
 import { BrowserRouter as Router, Route, Routes ,Navigate} from 'react-router-dom';
@@ -12,6 +14,7 @@ import ProfilePage from './pages/client/ProfilePage.jsx';
 import AccountSettings from './pages/client/AccountSettings.jsx';
 import EspaceGestionnaire from './pages/gestionnaire/EspaceGestionnaire.jsx';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
+import About from './pages/About.jsx';
 
 const App = () => {
   
@@ -34,10 +37,12 @@ const MainRoutes = () => {
           <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/About" element={<About />} />
               <Route path="/mon-profile" element={<ProfilePage />} />
               <Route path="/livraison-colis" element={<DeliveryForm />} />
               <Route path="/historique-commandes" element={<HistoriqueCommandes />} />
               <Route path="/account-settings" element={<AccountSettings />} />
+              
               
               {/* Define role-specific routes */}
               {/* {user && user.role === 'GESTIONNAIRE' && ( */}

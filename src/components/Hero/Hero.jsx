@@ -16,7 +16,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <header className="relative overflow-hidden font-sans">
+        <header className="relative overflow-hidden font-sans z-0">
             {/* Gradient Background with Map Image */}
             <div className="absolute inset-0 bg-gradient-to-r from-tealDark to-lightCyan">
                 <div className="absolute inset-0 opacity-10 bg-cover bg-center" style={{ backgroundImage: `url(${mapPattern})` }}></div>
