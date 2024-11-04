@@ -26,7 +26,7 @@ public class AffectationService {
     }
 
     @Transactional
-    public void updateStatus(Long affectationId, Affectation.Status newStatus) {
+    public String updateStatus(Long affectationId, Affectation.Status newStatus, Long commandeId) {
         // Récupérer l'affectation par ID
         Affectation affectation = affectationRepository.findById(affectationId)
                 .orElseThrow(() -> new RuntimeException("Affectation non trouvée"));
@@ -43,5 +43,6 @@ public class AffectationService {
 
         // Sauvegarder l'affectation mise à jour
         affectationRepository.save(affectation);
-}
+        return null;
+    }
 }

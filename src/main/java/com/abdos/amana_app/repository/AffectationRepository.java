@@ -21,4 +21,7 @@ public interface AffectationRepository extends JpaRepository<Affectation, Long> 
     List<Affectation> findByCommande_Client(@Param("client") Client client);
 
     Optional<Affectation> findByCommande(Commande commande);
+    int countByStatus(Affectation.Status status);
+    @Query("SELECT COUNT(a) FROM Affectation a WHERE a.status = com.abdos.amana_app.model.Affectation.Status.LIVRE")
+    Long countByStatusLivre();
 }

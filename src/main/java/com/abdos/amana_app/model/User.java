@@ -58,6 +58,9 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Admin admin;
     public String getUsername() {
         return email;
     }
@@ -76,6 +79,18 @@ public class User implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
+    public Admin getAdmin() {
+
+        return admin;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setAdmin(Admin admin) { // Changer le type de User à Admin
+        this.admin=admin;
+}
 
     // Ajoutez d'autres champs nécessaires
 }

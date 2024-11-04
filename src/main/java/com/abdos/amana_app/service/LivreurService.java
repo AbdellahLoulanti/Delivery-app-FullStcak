@@ -3,14 +3,14 @@ package com.abdos.amana_app.service;
 
 import com.abdos.amana_app.dto.LivreurDTO;
 import com.abdos.amana_app.dto.LivreurUpdateDTO;
+import com.abdos.amana_app.dto.NotificationDTO;
+import com.abdos.amana_app.mapper.MapperUtil;
 import com.abdos.amana_app.model.Livreur;
 import com.abdos.amana_app.model.User;
-import com.abdos.amana_app.repository.LivreurRepository;
-import com.abdos.amana_app.repository.ProvincePostalCodeRepository;
-import com.abdos.amana_app.repository.TokenRepository;
-import com.abdos.amana_app.repository.UserRepository;
+import com.abdos.amana_app.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -104,5 +106,15 @@ public class LivreurService {
         tokenRepository.deleteTokenByUserId(id);
         userRepository.deleteById(id);
     }
+
+    @Autowired
+    private NotificationRepository notificationRepository;
+
+    public List<NotificationDTO> getNotificationByLivreurId(Long livreurId) {
+        return notificationRepository.findByUserId(livreurId)
+                .stream()
+                .map(MapperUtil::toNotificationDTO)
+                .collect(Collectors.toList());
+}
 
 }

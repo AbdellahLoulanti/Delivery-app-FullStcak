@@ -1,5 +1,6 @@
 package com.abdos.amana_app.dto;
 
+import com.abdos.amana_app.model.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,8 @@ public class LivreurDTO {
     private String nom; // Nom de l'utilisateur lié
     private String telephone;
     private String email;
-    private String province; // Nom ou code de la province
+    private String province;
+// Nom ou code de la province
 
 
     public LivreurDTO(Long userId, String nom, String telephone, String email, String province) {
@@ -20,6 +22,10 @@ public class LivreurDTO {
         this.email = email;
         this.province = province;
 
+
     }
     public LivreurDTO() {}
+
+    public void setRole(Role role) {
+    }
 }
